@@ -3,6 +3,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('employeedb','root','root', {
     host: 'localhost',
     dialect: 'mysql',
+    logging: false
 });
 
 try {
@@ -16,8 +17,8 @@ const db = {};
 db.Sequelize=Sequelize;
 db.sequelize=sequelize;
 
-db.contact = require('./contact')(sequelize, DataTypes)
-db.user = require('./user')(sequelize, DataTypes, Model)
+db.contact = require('./contact.model')(sequelize, DataTypes)
+db.user = require('./user.model')(sequelize, DataTypes, Model)
 db.sequelize.sync({ force: true });
 
 // require('./contact')
