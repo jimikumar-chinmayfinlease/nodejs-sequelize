@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('./models');
 const app = express();
-const User = require('./models/user');
 
 app.use(bodyParser.json());
 
@@ -10,7 +10,8 @@ app.get("/", function (req,res){
 });
 
 // User.sync();
-User.sync({force: true });
+// User.sync({force: true });
+// Contact.sync({force: true });
 // User.sync({alter: true });
 // User.drop();
 

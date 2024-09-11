@@ -1,9 +1,9 @@
 // 1st way to create table
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('./index');
-
+// const { DataTypes, Model } = require('sequelize');
+// const sequelize = require('./index');
+module.exports = (sequelize, DataTypes, Model) => {
 class User extends Model {}
 
 User.init({
@@ -26,6 +26,7 @@ User.init({
 // the defined model is the class itself
 console.log(User === sequelize.models.User); // true
 
+}
 /*
 
 Executing (default): SELECT 1+1 AS result
@@ -62,7 +63,7 @@ Executing (default): SHOW INDEX FROM `Users`
 // // `sequelize.define` also returns the model
 // console.log(User === sequelize.models.User); // true
 
-module.exports = User;
+// module.exports = User;
 
 /*
 
