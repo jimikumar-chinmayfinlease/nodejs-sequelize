@@ -12,6 +12,16 @@ app.get("/", function (req,res){
 
 app.get('/add', userController.addUser);
 
+app.get('/users', userController.getUsers);
+
+app.get('/users/:id', userController.getUser);
+
+app.post('/users', userController.postUser);
+
+app.delete('/users/:id', userController.deleteUser);
+
+app.patch('/users/:id', userController.updateUser);
+
 // User.sync();
 // User.sync({force: true });
 // Contact.sync({force: true });
