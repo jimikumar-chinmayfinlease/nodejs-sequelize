@@ -185,7 +185,26 @@ const queryData = async (req, res) => {
   //     offset: 1,
   //   });
 
-  let data = await Users.count({});
+  const data = await Users.findAll({
+    attributes: [
+      "name",
+      [db.Sequelize.fn("COUNT", db.Sequelize.col("id")), "User Count"], // Count how many users have the same name
+    ],
+    where: {
+      id: {
+        [db.Op.gt]: 2, // Only considering users with id > 2
+      },
+      email: {
+        [db.Op.like]: "%@gmail.com%", // Only users with Gmail addresses
+      },
+    },
+    order: [["name", "DESC"]], // Ordering by name in descending order
+    group: ["name"], // Grouping by name
+    // limit: 4, // Limiting the result to 4 groups
+    // offset: 1, // Skipping the first group
+  });
+
+  //   let data = await Users.count({});
 
   console.log(data.dataValues);
 
