@@ -10,11 +10,12 @@ User.init({
     // Model attributes are defined here
     firstName: {
         type: DataTypes.STRING,
-        allowNull: false
+        // allowNull: true,
+        defaultValue: 'Bade'
     },
     lastName: {
         type: DataTypes.STRING,
-        defaultValue: 'Bhaiya'
+        defaultValue: 'Miyann'
         // allowNull defaults to true
     }
 }, {

@@ -1,29 +1,22 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 
-const sequelize = new Sequelize('employeedb','root','root', {
-    host: 'localhost',
-    dialect: 'mysql',
-    logging: false
+const sequelize = new Sequelize("employeedb", "root", "root", {
+  host: "localhost",
+  dialect: "mysql",
+  pool: { max: 5, min: 0, idle: 10000 },
 });
 
-try {
-    sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database: ', error);
-}
+sequelize
+  .authenticate()
+  .then(() => console.log(`Database Connected.`))
+  .catch((error) => console.log(`Error`, error));
 
 const db = {};
-db.Sequelize=Sequelize;
-db.sequelize=sequelize;
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-db.contact = require('./contact.model')(sequelize, DataTypes)
-db.user = require('./user.model')(sequelize, DataTypes, Model)
-db.sequelize.sync({ force: false });
-
-// require('./contact')
-// require('./user')
-
-// sequelize.sync({force: false});
-
-module.exports = db;
+db.users = require("./users")(sequelize, DataTypes);
+db.sequelize
+  .sync({ force: false })
+  .then(() => console.log(`Database synced.`))
+  .catch((error) => console.log(`Error while syncing database.`));

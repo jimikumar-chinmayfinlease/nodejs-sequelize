@@ -78,11 +78,23 @@ let updateUser = async (req, res) => {
     res.status(200).json({data:data});
 }
 
+const queryUser = async (req, res) => {
+    const data = await User.create({
+        firstName: 'Bijoy',
+        lastName: "Gupta"
+    }, {
+        fields: ['lastName','firstName']
+    });
+    console.log('================',data.firstName, data.lastName);
+    res.status(200).json({data:data});
+}
+
 module.exports = {
     addUser,
     getUsers,
     getUser,
     postUser,
     deleteUser,
-    updateUser
+    updateUser,
+    queryUser
 }
