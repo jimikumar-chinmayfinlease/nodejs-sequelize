@@ -1,100 +1,30 @@
-let db = require('../models')
-let User = db.user
+const db = require("../models");
 
-let addUser = async (req,res) => {
-    const jane = User.build({ firstName: "Jane", lastName: "Bhaiya"});
-    await jane.save();
-    res.status(200).json(jane.toJSON());
+const Users = db.users;
 
-    // const jane = await User.create({ firstName: "Johny", lastName: "Bhaiya" });
-    // res.status(200).json(jane.toJSON());
+const addUser = async (req, res) => {
+  //   let data = await Users.build({ name: "Test", email: "test2@gmail.com" });
+  //   await data.save();
 
-    // const jane = await User.create({ firstName: "Johny", lastName: "Bhaiya" });
-    // jane.set({ firstName: "Janardan", lastName: "Bhai" });
-    // await jane.save();
-    // res.status(200).json(jane.toJSON());
+  let data = await Users.create({ name: "Demo4", email: "demo4@gmail.com" });
 
-    // const jane = await User.create({ firstName: "Johny", lastName: "Bhaiya" });
-    // jane.update({ firstName: "John", lastName: "Doe" });
-    // await jane.save();
-    // res.status(200).json(jane.toJSON());
+  data.name = "dummy";
 
-    // const jane = await User.create({ firstName: "Johny", lastName: "Bhaiya" });
-    // jane.update({ firstName: "John", lastName: "Doe" });
-    // await jane.save();
-    // await jane.destroy();
-    // res.status(200).json(jane.toJSON());
+  //   data.save();
 
-    
-    // const jane = await User.create({ firstName: "Johny", lastName: "Bhaiya" });
-    // jane.update({ firstName: "John", lastName: "Doe" });
-    // await jane.save();
-    // await jane.reload();
-    // res.status(200).json(jane.toJSON());
-}
+  //   data.destroy();
 
-let getUsers = async (req, res) => {
-    const data = await User.findAll({});
-    res.status(200).json({ data: data});
-}
+  data.reload();
 
-let getUser = async (req, res) => {
-    const data = await User.findOne({
-        where: {
-            id: req.params.id
-        }
-    });
-    res.status(200).json({ data: data});
-}
+  console.log(data.dataValues);
 
-let postUser = async (req, res) => {
-    const postData = req.body;
+  let response = {
+    data: "Okay",
+  };
 
-    if(postData.length > 1) {
-        var data = await User.bulkCreate(postData);
-    } else {
-        var data = await User.create(postData);
-    }
-    
-    res.status(200).json({data:data});
-}
-
-let deleteUser = async (req, res)=> {
-    const data = await User.destroy({
-        where: {
-            id: req.params.id
-        }
-    });
-    res.status(200).json({data:data});
-}
-
-let updateUser = async (req, res) => {
-    const dataToBeUpdated = req.body;
-    const data = await User.update(dataToBeUpdated, {
-        where: {
-            id: req.params.id
-        }
-    });
-    res.status(200).json({data:data});
-}
-
-const queryUser = async (req, res) => {
-    const data = await User.create({
-        firstName: 'Bijoy',
-        lastName: "Gupta"
-    }, {
-        fields: ['lastName','firstName']
-    });
-    console.log('================',data.firstName, data.lastName);
-    res.status(200).json({data:data});
-}
+  res.status(200).json(response);
+};
 
 module.exports = {
-    addUser,
-    getUsers,
-    getUser,
-    postUser,
-    deleteUser,
-    updateUser,
-    queryUser
-}
+  addUser,
+};
