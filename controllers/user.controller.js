@@ -215,8 +215,37 @@ const queryData = async (req, res) => {
   res.status(200).json(response);
 };
 
+const finderData = async (req, res) => {
+  // let data = await Users.findAll({});
+  // let data = await Users.findOne({});
+  // let data = await Users.findByPk(4);
+  // let data = await Users.findAndCountAll({
+  //   where: {
+  //     gender: "female",
+  //   },
+  // });
+
+  let [data, created] = await Users.findOrCreate({
+    where: {
+      name: "dummy1",
+    },
+    defaults: {
+      email: "dummy1@gmail.com",
+      gender: "male",
+    },
+  });
+
+  let response = {
+    data: data,
+    isNewRecordedAdded: created,
+  };
+
+  res.status(200).json(response);
+};
+
 module.exports = {
   addUser,
   crudOperation,
   queryData,
+  finderData,
 };
