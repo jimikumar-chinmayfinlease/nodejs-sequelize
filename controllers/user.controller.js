@@ -243,9 +243,27 @@ const finderData = async (req, res) => {
   res.status(200).json(response);
 };
 
+const setterGetter = async (req, res) => {
+  // let data = await Users.create({
+  //   name: "Test",
+  //   email: "done",
+  //   gender: "male",
+  // });
+
+  let data = await Users.findAll({});
+
+  let response = {
+    message: "setter-getter",
+    data,
+  };
+
+  res.status(200).json(response);
+};
+
 module.exports = {
   addUser,
   crudOperation,
   queryData,
   finderData,
+  setterGetter,
 };
