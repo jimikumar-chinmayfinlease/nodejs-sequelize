@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         type: DataTypes.STRING,
-        set(value) {
-          this.setDataValue("name", value + " Singh");
-        },
+        // set(value) {
+        //   this.setDataValue("name", value + " Singh");
+        // },
         get() {
           return (
             this.getDataValue("name") +
@@ -18,12 +18,26 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         defaultValue: "test@gmail.com",
-        set(value) {
-          this.setDataValue("email", value + "@gmail.com");
-        },
+        allowNull: false,
+        unique: true,
+        // set(value) {
+        //   this.setDataValue("email", value + "@gmail.com");
+        // },
       },
       gender: {
         type: DataTypes.STRING,
+        validate: {
+          // equals: "male",
+          // equals: {
+          //   args: "male",
+          //   msg: `Gender must be 'male'`,
+          // },
+          // isIn: [["male", "female"]],
+          isIn: {
+            args: [["male", "female"]],
+            msg: `Please select from male/female`,
+          },
+        },
       },
     },
     {

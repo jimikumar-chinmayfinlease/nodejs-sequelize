@@ -260,10 +260,55 @@ const setterGetter = async (req, res) => {
   res.status(200).json(response);
 };
 
+const validationController = async (req, res) => {
+  try {
+    let data = await Users.create({
+      name: "Test123",
+      email: "done23@gmail.com",
+      gender: "male",
+    });
+  } catch (e) {
+    const messages = {};
+    e.errors.forEach((error) => {
+      let message;
+
+      // switch (error.validatorKey) {
+      //   case "not_unique":
+      //     message = "Duplicate Email Found";
+      //     break;
+
+      //   case "isIn":
+      //     message = error.message;
+      //     break;
+
+      //   case "equals":
+      //     message = error.message;
+      //     break;
+
+      //   default:
+      //     break;
+      // }
+      message = error.message;
+
+      console.log("+++++++++++++++++++ errpr.path", error.path);
+      messages[error.path] = message;
+      console.log(messages);
+    });
+    // console.log("+++++++++++++++++++++++ e.errors: ", e.errors[0].validatorKey);
+  }
+
+  let response = {
+    message: "Validation",
+  };
+
+  res.status(200).json(response);
+};
+
 module.exports = {
   addUser,
   crudOperation,
   queryData,
   finderData,
   setterGetter,
+  validationController,
 };
