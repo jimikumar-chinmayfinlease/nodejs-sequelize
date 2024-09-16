@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Op } = require("sequelize");
+const { Sequelize, DataTypes, Op, QueryTypes } = require("sequelize");
 
 const sequelize = new Sequelize("employeedb", "root", "root", {
   host: "localhost",
@@ -15,6 +15,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.Op = Op;
+db.QueryTypes = QueryTypes;
 
 db.sequelize
   .sync({ force: false })

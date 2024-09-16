@@ -304,6 +304,32 @@ const validationController = async (req, res) => {
   res.status(200).json(response);
 };
 
+const rawQuery = async (req, res) => {
+  const users = await db.sequelize.query(
+    "SELECT * FROM users where gender = $gender ",
+    {
+      type: db.QueryTypes.SELECT,
+      // model: Users,
+      // mapToModel: true,
+      // raw: true,
+      // replacements: { gender: "male" }, // gender =:gender
+      // replacements: ["male"], // gender = ?
+      // replacements: { gender: ["male", "female"] }, // gender IN(:gender)
+      // replacements: { searchEmail: "%@gmail.com" }, // email LIKE :searchEmail
+      bind: {
+        gender: "male",
+      },
+    }
+  );
+
+  let response = {
+    message: "Raw Query",
+    data: users,
+  };
+
+  res.status(200).json(response);
+};
+
 module.exports = {
   addUser,
   crudOperation,
@@ -311,4 +337,5 @@ module.exports = {
   finderData,
   setterGetter,
   validationController,
+  rawQuery,
 };
